@@ -1,0 +1,8 @@
+{
+  "contest": 443,
+  "handle": "nnez",
+  "risk": "3",
+  "title": "Adversary can use `send_nft` to bypass the payment and steal seller's token in auto-approve scenario  ",
+  "issueId": 3,
+  "issueUrl": "https://github.com/code-423n4/2024-10-coded-estate-findings/issues/3"
+}
