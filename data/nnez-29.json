@@ -1,0 +1,8 @@
+{
+  "contest": 443,
+  "handle": "nnez",
+  "risk": "2",
+  "title": "Use of `u64` for `price_per_day` and `price_per_month` limits handling tokens with 18 decimals  ",
+  "issueId": 29,
+  "issueUrl": "https://github.com/code-423n4/2024-10-coded-estate-findings/issues/29"
+}
