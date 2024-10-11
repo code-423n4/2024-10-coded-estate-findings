@@ -5,6 +5,7 @@
 - [L-04 Users can make reservation using time in the past](#l-04-users-can-make-reservation-using-time-in-the-past)
 - [L-05 Cancelling bid should reject transaction with attached funds](#l-05-cancelling-bid-should-reject-transaction-with-attached-funds)
 - [L-06 `setreservationforshortterm` should round up when calculating total days of renting](#l-06-`setreservationforshortterm`-should-round-up-when-calculating-total-days-of-renting)
+- [L-07 Lanlord should only allow to call `withdrawtolandlord` for approved rental](#l-07-lanlord-should-only-allow-to-call-`withdrawtolandlord`-for-approved-rental)
 
 ## L-01 `setreservationforshortterm` doesn't check for `islisted` flag
 ### Proof-of-Concept
@@ -264,6 +265,7 @@ Users' fund might get stuck
 Check that `info.funds` is empty when users are cancelling the bid. If funds are attached, revert the transaction.  
 
 ## L-06 `setreservationforshortterm` should round up when calculating total days of renting  
+### Proof-of-Concept
 The rental price for short-term stays is set per day. The rent_amount function calculates the total days by dividing the timestamp difference by 86400 seconds.  
 
 However, due to integer division, the result is always rounded down. This creates a discrepancy between the rental days counted and the rental period recorded in seconds.  
@@ -304,3 +306,18 @@ Token owners may receive less payment than intended.
 - Rounding up when calculate the total days.   
 OR  
 - Change the price unit to price per second.  
+
+## L-07 Lanlord should only allow to call `withdrawtolandlord` for approved rental  
+### Proof-of-Concept
+Relevant code snippet: https://github.com/code-423n4/2024-10-coded-estate/blob/main/contracts/codedestate/src/execute.rs#L1786-L1854  
+
+`withdrawtolandlord` allows landlords to withdraw the deposit amount from their rent, which is equivalent to a security deposit. However, it only checks that the current time exceeds the rental's check-in timestamp, but it fails to verify if a specified rental is approved by the owner.
+
+This could lead to issues in edge cases where renters deposit their security deposit but their reservation is not approved. If they don't cancel the reservation immediately, landlords can withdraw the security deposit, which belongs to the renter.  
+
+### Impact  
+Landlords can potentially steal renters' security deposits in an edge case without having to approve for the rental.  
+
+### Recommended Mitigations  
+- Only allow withdrawing security deposit for approved rental.  
+- For non-approved reservations, landlords can reject them to free up availability and return the funds to renters.
