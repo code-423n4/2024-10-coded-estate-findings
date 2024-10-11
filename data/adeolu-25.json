@@ -1,0 +1,8 @@
+{
+  "contest": 443,
+  "handle": "adeolu",
+  "risk": "2",
+  "title": "`depositforlongtermrental()` does not validate the `sent_amount`",
+  "issueId": 25,
+  "issueUrl": "https://github.com/code-423n4/2024-10-coded-estate-findings/issues/25"
+}
