@@ -1,0 +1,8 @@
+{
+  "contest": 443,
+  "handle": "adeolu",
+  "risk": "2",
+  "title": "unbounded token.rentals array will always grow and may cause DOS issues for other functions that iterate it. ",
+  "issueId": 21,
+  "issueUrl": "https://github.com/code-423n4/2024-10-coded-estate-findings/issues/21"
+}
